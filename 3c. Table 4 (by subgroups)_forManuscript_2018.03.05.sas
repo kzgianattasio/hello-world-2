@@ -3,16 +3,7 @@ libname rand 'F:\power\HRS\RAND_HRS\sasdata';
 options fmtsearch = (rand.formats);
 
 /*********************************************************************************************
-* Created 2018.03.5
-*
-* Computes and outputs confusion tables by sociodemographic subgroups
-*	Race/ethnicity
-*	Education
-*	Age
-*	Gender
-*	Proxy status
-*
-* Exports performance metrics both in wide and long form (for ROC)
+* Edited 2018.04.16 on github
 *
 ***********************************************************************************************/
 *set date for output label;
