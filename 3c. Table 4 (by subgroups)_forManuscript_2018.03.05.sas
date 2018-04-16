@@ -7,7 +7,7 @@ options fmtsearch = (rand.formats);
 *
 ***********************************************************************************************/
 *set date for output label;
-%let dt=2018_02305;
+%let dt=2018_0416;
 %let pdt=2018_0302;
 
 *pull datasets from drive & create self-response dummy;
@@ -92,6 +92,7 @@ run;
 %confusion_subs(hurd_dem, &data, &sub, &val);
 %confusion_subs(wu_dem, &data, &sub, &val);
 %confusion_subs(crim_dem, &data, &sub, &val);
+%confusion_subs()
 
 data table_&data._&sub._&val; length algorithm $20;
 set hw_dem_&sub._&data
@@ -151,14 +152,7 @@ proc freq data=HRS&d;
 tables raceeth4;
 run;
 
-%loop_sub (HRS&d, NH_white, 1);
-%loop_sub (HRS&d, NH_black, 1);
-%loop_sub (HRS&d, hispanic, 1);
-
-data table_HRS&d; 
-	merge table_HRS&d._NH_white_1 table_HRS&d._NH_black_1 table_HRS&d._hispanic_1;
-	by algorithm;
-run;
+/*delete race/ethnic*/
 
 TITLE "Confusion matrix for HRS/ADAMS training data, by race/ethnicity";
 proc print data=table_HRS&d; run;
@@ -256,7 +250,7 @@ data table_HRS&d;
 	by algorithm;
 run;
 
-TITLE "Confusion matrix for HRS/ADAMS training data, by proxy";
+/* TITLE "Confusion matrix for HRS/ADAMS training data, by proxy";
 proc print data=table_HRS&d; run;
 data table_HRS&d._long;
 	set table_HRS&d._selfresp_1_long table_HRS&d._proxy_1_long ;
@@ -266,5 +260,5 @@ TITLE "Confusion matrix for HRS/ADAMS training data, by proxy - long";
 proc print data=table_HRS&d._long; run;
 %mend;
 %out(training, t) %out(validation, v)
-
+ */
 ods html close;
